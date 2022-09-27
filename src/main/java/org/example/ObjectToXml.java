@@ -3,8 +3,13 @@ package org.example;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 
 public class ObjectToXml {
@@ -29,5 +34,40 @@ public class ObjectToXml {
 
 
         marshallerObj.marshal(list,new FileOutputStream("student.xml"));
+
+        // XML compressed with gzip
+        Path source = Paths.get("student.xml");
+        Path target = Paths.get("student.xml.gz");
+        try (GZIPOutputStream gos = new GZIPOutputStream(
+                new FileOutputStream(target.toFile()));
+             FileInputStream fis = new FileInputStream(source.toFile())) {
+
+            // copy file
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fis.read(buffer)) > 0) {
+                gos.write(buffer, 0, len);
+            }
+
+        }
+
+
+        //decompressed gzip
+        Path source1 = Paths.get("student.xml.gz");
+        Path target1 = Paths.get("studentDecompressed.xml");
+
+        try (GZIPInputStream gis = new GZIPInputStream(
+                new FileInputStream(source1.toFile()));
+             FileOutputStream fos = new FileOutputStream(target1.toFile())) {
+
+            // copy GZIPInputStream to FileOutputStream
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = gis.read(buffer)) > 0) {
+                fos.write(buffer, 0, len);
+            }
+
+        }
+
     }
 }
