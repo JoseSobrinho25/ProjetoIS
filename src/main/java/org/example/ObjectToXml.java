@@ -14,9 +14,7 @@ import java.util.zip.GZIPOutputStream;
 
 public class ObjectToXml {
     public static void main(String[] args) throws Exception{
-        JAXBContext contextObj = JAXBContext.newInstance(ListProfessors.class);
-        Marshaller marshallerObj = contextObj.createMarshaller();
-        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
         Student stud1=new Student(20182728,"Alberto",918172616,"M","25/10/2000","25/10/2021","Rua benfica");
         Student stud2=new Student(20182720,"Joao",918672616,"M","25/10/2000","25/10/2021","Rua benfica");
         Student stud3=new Student(20182729,"Diogo",918175616,"M","25/10/2000","25/10/2021","Rua benfica");
@@ -32,8 +30,13 @@ public class ObjectToXml {
         ListProfessors list = new ListProfessors(aux);
 
 
-
+        //java object to xml
+        JAXBContext contextObj = JAXBContext.newInstance(ListProfessors.class);
+        Marshaller marshallerObj = contextObj.createMarshaller();
+        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshallerObj.marshal(list,new FileOutputStream("student.xml"));
+
+        //xml to java object
 
         // XML compressed with gzip
         Path source = Paths.get("student.xml");
