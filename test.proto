@@ -1,0 +1,33 @@
+syntax = "proto2";
+
+package tutorial;
+
+option java_multiple_files = true;
+option java_package = "com.example.tutorial.protos";
+option java_outer_classname = "ClassProtos";
+
+message Professors {
+  repeated Professor professor = 1;
+
+}
+
+message Professor{
+  optional string name = 1;
+  optional string id = 2;
+  optional string email = 3;
+  optional string birthDate = 4;
+  optional string phoneNumber = 5;
+  optional string address = 6;
+  repeated Student student = 7;
+
+}
+
+message Student{
+  optional string id = 1;
+  optional string name = 2;
+  optional string phoneNumber = 3;
+  optional string gender = 4;
+  optional string birthDate = 5;
+  optional string registrationDate = 6;
+  optional string address = 7;
+}

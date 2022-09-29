@@ -1,8 +1,11 @@
 package org.example;
 
+import com.example.tutorial.protos.Professors;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.file.Path;
@@ -15,19 +18,23 @@ import java.util.zip.GZIPOutputStream;
 public class ObjectToXml {
     public static void main(String[] args) throws Exception{
 
-        Student stud1=new Student(20182728,"Alberto",918172616,"M","25/10/2000","25/10/2021","Rua benfica");
-        Student stud2=new Student(20182720,"Joao",918672616,"M","25/10/2000","25/10/2021","Rua benfica");
-        Student stud3=new Student(20182729,"Diogo",918175616,"M","25/10/2000","25/10/2021","Rua benfica");
+        Student stud1=new Student("20182728","Alberto","918172616","M","25/10/2000","25/10/2021","Rua benfica");
+        Student stud2=new Student("20182720","Joao","918672616","M","25/10/2000","25/10/2021","Rua benfica");
+        Student stud3=new Student("20182729","Diogo","918175616","M","25/10/2000","25/10/2021","Rua benfica");
         ArrayList <Student> aux2 = new ArrayList<>();
         aux2.add(stud1);
         aux2.add(stud2);
         aux2.add(stud3);
-        Professor prof=new Professor(2018276713,"Jose", "20/10/1986", 918262734,"Rua Vale da Azenha",aux2);
+        Professor prof=new Professor("2018276713","Jose", "20/10/1986", "918262734","Rua Vale da Azenha",aux2);
 
 
         ArrayList <Professor> aux = new ArrayList<>();
         aux.add(prof);
         ListProfessors list = new ListProfessors(aux);
+
+        Professors addressBook =
+                Professors.parseFrom(new FileInputStream("testFile"));
+        System.out.println(addressBook.getProfessorList().get(0).getStudentList());
 
 
         //java object to xml
@@ -37,6 +44,12 @@ public class ObjectToXml {
         marshallerObj.marshal(list,new FileOutputStream("student.xml"));
 
         //xml to java object
+        File file = new File("student.xml");
+        JAXBContext jaxbContext = JAXBContext.newInstance(ListProfessors.class);
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        ListProfessors listp= (ListProfessors) jaxbUnmarshaller.unmarshal(file);
+        //System.out.println(listp.getList().get(0).getStudentList().get(0).getName());
+
 
         // XML compressed with gzip
         Path source = Paths.get("student.xml");

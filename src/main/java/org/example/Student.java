@@ -14,10 +14,10 @@ import jakarta.xml.bind.annotation.XmlType;
 })
 public class Student {
 
-    private int id;
+    private String id;
 
     private String name;
-    private int phoneNumber;
+    private String phoneNumber;
     private String gender;
     private String birthDate;
     private String registrationDate;
@@ -26,7 +26,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(int id, String name, int phoneNumber, String gender, String birthDate, String registrationDate, String address) {
+    public Student(String id, String name, String phoneNumber, String gender, String birthDate, String registrationDate, String address) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -36,11 +36,11 @@ public class Student {
         this.address = address;
     }
     @XmlAttribute(name = "StudentIdentifier")
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class Student {
         this.name = name;
     }
 
-    public int getphoneNumber() {
+    public String getphoneNumber() {
         return phoneNumber;
     }
 
-    public void setphoneNumber(int phoneNumber) {
+    public void setphoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

@@ -13,11 +13,11 @@ import java.util.ArrayList;
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Professor {
     @XmlAttribute(name = "ProfessorIdentifier")
-    private int id;
+    private String id;
     //@XmlElement(name = "ProfessorInfo")
     private String name;
     private String birthDate;
-    private int phoneNumber;
+    private String phoneNumber;
     private String address;
     @XmlElement(name = "student")
     private ArrayList<Student> studentList = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Professor {
     public Professor() {
     }
 
-    public Professor(int id, String name, String birthDate, int phoneNumber, String address, ArrayList<Student> studentList) {
+    public Professor(String id, String name, String birthDate, String phoneNumber, String address, ArrayList<Student> studentList) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -43,11 +43,11 @@ public class Professor {
         this.studentList = studentList;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,11 +67,11 @@ public class Professor {
         this.birthDate = birthDate;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
